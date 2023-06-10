@@ -4,7 +4,7 @@ import restart from '../assets/restart.png';
 
 export default function Timer() {
 
-    var curTimer = "";
+    var curTimer = "pomoTime";
 
     const setStyles = (pomoClass:string , shortClass:string , longClass:string ) => {
         const pomo = document.getElementById("pomodoro");
