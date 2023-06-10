@@ -59,7 +59,7 @@ export default function Timer() {
     };
 
     var flag = 0;
-    let intervalRef: NodeJS.Timeout | null = null;
+    let intervalRef: NodeJS.Timeout;
 
     const startStop = () => {
         const button = document.getElementById("start");
@@ -77,11 +77,14 @@ export default function Timer() {
             var minutes = parseInt(timeParts[0]);
             var seconds = parseInt(timeParts[1]);
             intervalRef = setInterval(function () {
+                if(seconds > 0)
+                {
+                    seconds--;
+                }
                 if(minutes === 0 && seconds === 0)
                 {
                     notifyMe();
                     clearInterval(intervalRef);
-                    intervalRef = null;
                     restartFn();
                 }
                 else if(seconds === 0) {
@@ -94,7 +97,6 @@ export default function Timer() {
                 } else {
                     timer.innerText = minutes + ":" + seconds
                 }
-                seconds--;
             }, 1000)
         }
         else if(button && flag === 1)
@@ -106,7 +108,6 @@ export default function Timer() {
             // stop the countdown timer
             if(intervalRef) {
                 clearInterval(intervalRef);
-                intervalRef = null;
             }
         }
     }
@@ -142,7 +143,7 @@ export default function Timer() {
             <button onClick={longTime} id="long" className="hover:text-black hover:bg-white transition-all duration-300 ease-in-out ">Long Break</button>
         </div>
         <div className="text-9xl pt-5">
-            <h1 id="countDown">Timer</h1>
+            <h1 id="countDown">25:00</h1>
         </div>
         <div className="flex flex-row items-center gap-10">
             <button onClick={startStop}id="start"className='text-xl cursor-pointer outline outline-1 outline-white p-3 rounded-xl transition-all duration-300 ease-in-out'>Start</button>
